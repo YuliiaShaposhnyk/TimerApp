@@ -1,7 +1,10 @@
 package com.example.timerapp;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -21,7 +24,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textViewTimer = findViewById(R.id.tvTimer);
+
+        if (savedInstanceState !=null){
+            seconds =  savedInstanceState.getInt("seconds");
+            isRunning =  savedInstanceState.getBoolean("isRunning");
+        }
+
         runTimer();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+        outState.putInt("seconds", seconds);
+        outState.putBoolean("isRunning", isRunning);
     }
 
     public void onClickStartTimer(View view) {
